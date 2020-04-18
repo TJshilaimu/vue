@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淘宝搜索</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="goods" v-for="(goods,goodsIndex) in goodsList">
+            <div class = "title">{{goods.title}}</div>
+            <ul class = "type-list">
+                <li class = "type" @click="changeColor(goods,typeIndex,type,goodsIndex)" :class="{active:typeIndex===goods.index}" v-for="(type,typeIndex) in goods.typeList">{{type}}</li>
+            </ul>
+        </div>
+        <div class = "choose-type">
+            <div>已选条件</div>
+            <span class = "no-goods" v-if="!flag">暂时没有选择过滤条件</span>
+            <ul class="filter-list" v-else>
+                <li v-for= "(choose,chooseIndex) in chooseList">{{choose}}
+                    <span class="delete-goods" @click="deleteGoods(chooseIndex)">x</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                goodsList: [{
+
+                        title: '上装',
+                        typeList: ['全部', '针织衫', '毛呢外套', 'T恤', '羽绒服', '棉衣', '卫衣', '风衣'],
+                        id: 1,
+                    },
+                    {
+                        title: '裤装',
+                        typeList: ['全部', '牛仔裤', '小脚/铅笔裤', '休闲裤', '打底裤', '哈伦裤'],
+                        id: 2,
+                    },
+                    {
+                        title: '裙装',
+                        typeList: ['全部', '连衣裙', '半身裙', '长袖连衣裙', '中长款连衣裙'],
+                        id: 3,
+                    }
+                ],
+                chooseList:{},
+                flag:false
+            },
+            methods:{
+                changeColor(goods,typeIndex,type,goodsIndex){
+                    if(type === '全部'){
+                        this.deleteGoods(goodsIndex);
+                        return
+                    }
+                    goods.index = typeIndex;
+                    // this.chooseList.push(type)
+                    // this.chooseList.splice(goodsIndex,1,type)
+                    this.$set(this.chooseList,goodsIndex,type)
+                    // console.log(this.chooseList)
+                    this.flag = true
+                },
+                deleteGoods(index){
+                    this.$delete(this.chooseList,index)
+                    this.goodsList[index].index = 0;
+                    if(JSON.stringify(this.chooseList) == "{}"){
+                        this.flag = false
+                    }
+                }
+            }
+        })
+        vm.goodsList.forEach(element => {
+            vm.$set(element,'index',0)
+            
+        });
+    </script>
+</body>
+
+</html>
