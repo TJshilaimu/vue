@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="area" v-for="area in 2">
+            <h2>{{area===1?'提问':'答案'}}</h2>
+            <ul>
+                <li v-for="question in questionList">
+                    <div v-if="question.type === 'short'">
+                        <span>{{question.title}}</span>
+                        <input type="text" v-if="area ===1" v-model = "myName">
+                        <span v-else>{{myName}}</span>
+                    </div>
+                    <div v-else-if="question.type === 'single'">
+                        <span>{{question.title}}</span>
+                        <template v-if ="area === 1">
+                            <div v-for="choose in question.chooseList" :key="choose">
+                                <input type="radio" :value="choose" v-model="sex">
+                                <span>{{choose}}</span>
+                            </div>
+                        </template>
+                        <span v-else>{{sex}}</span>
+                        
+                    </div>
+                    <div v-else-if="question.type === 'multiple'">
+                        <span>{{question.title}}</span>
+                        <template v-if="area === 1">
+                            <div v-for="choose in question.chooseList">
+                                <input type="checkbox" :value='choose' v-model="myCheck">
+                                <span>{{choose}}</span>
+                            </div>
+                        </template>
+                      <span v-else>{{myCheck.toString()}}</span>
+                    </div>
+                    <div v-else-if="question.type === 'long'">
+                        <span>{{question.title}}</span>
+                        <textarea v-if="area === 1" v-model="desc"></textarea>
+                        <span v-else>{{desc}}</span>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                myName:'',
+                sex:'',
+                myCheck:[],
+                desc:'',
+
+
+                questionList: [{
+                        type: 'short',
+                        title: '1.请问你的姓名是？',
+                        chooseList: null,
+                        id: 0,
+                    },
+                    {
+                        type: 'single',
+                        title: '2.请问您的性别是？',
+                        chooseList: [
+                            '男',
+                            '女',
+                            '保密',
+                        ],
+                        id: 1,
+                    },
+                    {
+                        type: 'multiple',
+                        title: '3. 请选择您的兴趣爱好：',
+                        chooseList: [
+                            '看书',
+                            '游泳',
+                            '跑步',
+                            '看电影',
+                            '听音乐',
+                        ],
+                        id: 2,
+                    },
+                    {
+                        type: 'long',
+                        title: '4. 请介绍一下自己:',
+                        chooseList: null,
+                        id: 3,
+                    },
+                ]
+            },
+
+        })
+    </script>
+</body>
+
+</html>
