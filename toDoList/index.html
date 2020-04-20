@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="container">
+                <div class="logo">toDoList</div>
+                <div class="input-area" >
+                    <input type="text" v-model="msg">
+                    <button @click="addList">添加</button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h2>
+                <span>正在进行</span>
+                <span class="mask-num">{{doList.length}}</span>
+            </h2>
+            <ul class="mask-list">
+                <li v-for="(mask,index) in doList" :key="mask.id">
+                    <div>
+                        <input type="checkbox" @click="doFlag(index,'need')">
+                        <span>{{mask.title}}</span>
+                    </div>
+                    <button @click="deleteTemp('do',index)">删除</button>
+                </li>
+            </ul>
+        </div>
+        <div class="container">
+            <h2>
+                <span>已经完成</span>
+                <span class="mask-num">{{doneList.length}}</span>
+            </h2>
+            <ul class="mask-list complete-list">
+                <li v-for="(mask,index) in doneList">
+                    <div>
+                        <input type="checkbox" @click="doFlag(index,'完成')">
+                        <span>{{mask.title}}</span>
+                    </div>
+                    <button @click="deleteTemp('done',index)">删除</button>
+                </li>
+            </ul>
+        </div>
+    </div> 
+
+    <script>
+        const vm = new Vue({
+            el:"#app",
+            data:{
+                msg:'',
+                doList:[],
+                doneList:[],
+            },
+            methods:{
+                addList(){
+                    this.doList.push({
+                        title:this.msg,
+                        id:Math.random()
+                    });
+                },
+                doFlag(index,des){
+                    if(des == "完成"){
+                        const temp = this.doneList.splice(index,1)
+                        console.log(temp)
+                        this.doList.push(...temp)
+
+                    }else{
+            
+                        const temp=this.doList.splice(index,1);
+                        console.log(temp)
+                        console.log(this.doList)
+
+                        this.doneList.push(...temp)
+
+                    }
+
+                },
+                deleteTemp(msg,index){
+                    msg=='do'?this.doList.splice(index,1):this.doneList.splice(index,1)
+
+                }
+            }
+        })
+    </script>
+</body>
+</html>
