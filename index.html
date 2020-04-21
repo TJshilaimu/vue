@@ -13,93 +13,137 @@
 <body>
 
     <div id="app">
+        <div class="store">
+            <input type="checkbox" class="select-all" v-model="allSelect" />
+            <span class="store-name">渡一教育Web前端</span>
+        </div>
+        <ul class="course-list">
+            <li class="course" v-for="course in courseList" :key=course.id>
+                <input type="checkbox" class="course-radio" v-model="course.check" />
+                <div class="poster">
+                    <img :src="course.poster" :alt="course.title">
+                </div>
+                <div class="content">
+                    <div class="title">{{course.title}}</div>
+                    <div class="price-container">
+                        <div class="price">{{course.price}}</div>
+                        <div class="control-cart">
+                            <button class="minus-cart" @click="changeCart(course,'-')">-</button>
+                            <input type="text" class="cart-num" v-model.number="course.cart">
+                            <button class="add-cart" @click="changeCart(course,'+')">+</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
         <div class="control">
-            <input class="search" type="text" v-model="msg">
-            <div class="option">
-                <span v-for="(option,index) in controlOptions" :key="option" :class="{active:index===myIndex}" class="option" @click="change(index,option)">{{option}}</span>
+            <div class="select">
+                <input type="checkbox" class="select-all" v-model="allSelect">
+                <span>全选</span>
+            </div>
+            <div class="price-container">
+                <span>合计：</span>
+                <span class="price">{{totalPrice}}</span>
+                <button class="accounts">提交( {{selectNum}} )</button>
             </div>
         </div>
-        <ul>
-            <li class="person" v-for="search in searchList" :key="search.id">
-                <div class="avatar">
-                    <img :src="search.src">
-                  </div>
-                  <div class="content">
-                    <span class="name">{{search.name}}</span>
-                    <span class="des">{{ search.des}}</span>
-                  </div>
-            </li>          
-        </ul>
     </div>
 
     <script>
         const vm = new Vue({
-            el: '#app',
+            el: "#app",
             data: {
-                myIndex:null,
-                sex:['m','f'],
-                controlOptions: ['male', 'female', 'all'],
-                msg:'',
-                personArr: [{
-                        name: '王港',
-                        src: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4005587090,2408158268&fm=26&gp=0.jpg',
-                        des: '颈椎不好',
-                        sex: 'm',
-                        id: '056482'
+                courseList: [{
+                        poster: 'https://img.alicdn.com/bao/uploaded/i1/TB1VtAgdlWD3KVjSZFs3KIqkpXa_040950.jpg_80x80.jpg',
+                        title: '渡一教育 CSS3 深度剖析',
+                        price: 1299,
+                        cart: 1,
+                        id: 0
                     },
                     {
-                        name: '刘莹',
-                        src: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4005587090,2408158268&fm=26&gp=0.jpg',
-                        des: '我是谁',
-                        sex: 'f',
-                        id: '157894'
+                        poster: 'https://img.alicdn.com/bao/uploaded/i7/TB1_VJecBWD3KVjSZKPagip7FXa_045814.jpg_80x80.jpg',
+                        title: '渡一教育 移动端开发课程',
+                        price: 1148,
+                        cart: 1,
+                        id: 1595402664708
                     },
                     {
-                        name: '刘秀莹',
-                        src: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4005587090,2408158268&fm=26&gp=0.jpg',
-                        des: '我长得很好看',
-                        sex: 'f',
-                        id: '2849245'
+                        poster: 'https://img.alicdn.com/bao/uploaded/i2/TB1J.Q4cQxz61VjSZFto7uDSVXa_010347.jpg_80x80.jpg',
+                        title: '渡一教育 2019年 HTMLCSS零基础入学宝典',
+                        price: 1,
+                        cart: 1,
+                        id: 1596305473062
                     },
                     {
-                        name: '刘金雷',
-                        src: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4005587090,2408158268&fm=26&gp=0.jpg',
-                        des: '你没有见过陌生的脸',
-                        sex: 'm',
-                        id: '348515'
+                        poster: 'https://img.alicdn.com/bao/uploaded/i2/TB1bHwlaCWD3KVjSZSgVbgCxVXa_032434.jpg_80x80.jpg',
+                        title: '渡一教育 Web前端开发JavaScriptJs课',
+                        price: 1,
+                        cart: 1,
+                        id: 1595413512182
                     },
                     {
-                        name: '刘飞翔',
-                        src: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=4005587090,2408158268&fm=26&gp=0.jpg',
-                        des: '瓜皮刘',
-                        sex: 'm',
-                        id: '478454'
-                    }
-                ],
+                        poster: 'https://img.alicdn.com/bao/uploaded/i2/TB1MJd3g4z1gK0jSZSgnHevwpXa_014447.jpg_80x80.jpg',
+                        title: 'Web前端开发高级工程师全阶班【渡一教育】',
+                        price: 12798,
+                        cart: 1,
+                        id: 1596302161181
+                    },
+                    {
+                        poster: 'https://img.alicdn.com/bao/uploaded/i6/TB1xPeAbwaH3KVjSZFpjaLhKpXa_105848.jpg_80x80.jpg',
+                        title: '渡一教育 Java零基础入门到精通（集合，泛型等）',
+                        price: 1,
+                        cart: 1,
+                        id: 1596300025301,
+                    },
+                ]
             },
-            
-            computed:{
-                searchList(){
-                    const {personArr,msg,sex} = this;
-                   return personArr.filter(item => {
-                       return item.name.includes(msg) && sex.includes(item.sex);
+            methods: {
+                changeCart(course, type) {
+                    // if(course.cart <1){
+                    //     course.cart =1;
+                    //     return;
+                    // }
+                    // type === '-'?course.cart --:course.cart++;
+                    let cartNum = course.cart;
+                    if (type === '-') {
+                        if (cartNum === 1) {
+                            alert('受不了了，宝贝不能减少了哦');
+                        } else {
+                            course.cart--;
+                        }
+                    } else {
+                        course.cart++;
+                    }
+                }
+            },
+            computed: {
+                sailList() {
+                    return this.courseList.filter(item => item.check)
+                },
+                totalPrice() {
+                    let price = 0;
+                    this.sailList.forEach(item => {
+                        price += item.price * item.cart;
                     })
-
-                }
-            },
-            methods:{
-                change(index,option){
-                    this.myIndex = index;
-                    this.sex.length=0;
-                    switch(option){
-                        case 'male':this.sex.push('m');
-                        break;
-                        case 'female':this.sex.push('f');
-                        break;
-                        case 'all':this.sex.push('m','f');
-                        break;
+                    return price;
+                },
+                // allSelect(){
+                //     return this.courseList.every(item => item.check)
+                // } 
+                allSelect: {
+                    get() {
+                        return this.courseList.every(course => course.check);
+                    },
+                    set(val) {
+                        this.courseList.forEach(course => {
+                            course.check = val;
+                        })
                     }
+                },
+                selectNum(){
+                    return this.sailList.length;
                 }
+
             }
         })
     </script>
