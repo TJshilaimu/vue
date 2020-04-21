@@ -1,136 +1,125 @@
 * {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
-ul, li {
+li {
   list-style: none;
 }
 
-body {
-  background-color: #f40;
+@font-face {
+  font-family: 'iconfont';  /* project id 1511900 */
+  src: url('./font/iconfont.eot');
+  src: url('./font/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('./font/iconfont.woff2') format('woff2'),
+  url('./font/iconfont.woff') format('woff'),
+  url('./font/iconfont') format('truetype'),
+  url('./font/iconfont.svg#iconfont') format('svg');
+}
+
+.icon {
+  font-family: 'iconfont' !important;
+}
+
+.icon-paizhao:before {
+  content: "\e66f";
 }
 
 #app {
-  box-sizing: border-box;
-  width: 500px;
-  margin: 2px auto 0;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 5px;
+  width: 638px;
+  margin: 100px auto;
 }
 
-#app .store {
+.logo {
+  width: 270px;
+  height: 129px;
+  margin: 0 auto;
+}
+
+.logo img{
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.search-box {
   display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+  margin-top: 40px;
 }
 
-#app .store .select-all {
-  margin-right: 10px;
+.search-area {
+  position: relative;
+  display: inline-block;
+  width: 536px;
+  height: 40px;
+  line-height: 40px;
 }
 
-#app .store .store-name {
-  font-weight: bold;
-  font-size: 14px;
-}
-
-#app .course-list .course {
-  display: flex;
-  margin-bottom: 20px;
-}
-
-#app .course-list .course-radio {
-  width: 16px;
-  height: 16px;
-  margin-right: 10px;
-  transform: translateY(32px);
-}
-
-#app .course-list .poster {
-  width: 80px;
-  height: 80px;
-}
-
-#app .course-list .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 410px;
-  margin-left: 10px;
-  font-size: 12px;
-}
-
-#app .course-list .title {
-  margin-top: 10px;
-  color: #3c3c3c;
-}
-
-#app .course-list .price-container {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-#app .course-list .price {
-  color: #f40;
-  font-weight: 700;
-}
-
-#app .course-list .control-cart {
-  font-size: 0;
-}
-
-#app .course-list .cart-num {
-  font-size: 10px;
-  text-align: center;
-  width: 40px;
-  padding: 2px 0 3px;
+.search-area  input {
+  width: 480px;
+  height: 20px;
+  padding: 9px 48px 9px 7px;
+  font-size: 16px;
+  border: 1px solid #b8b8b8;
+  border-bottom: 1px solid #ccc;
   vertical-align: top;
-  border: 1px solid #eee;
+  border-right: none;
   outline: none;
 }
 
-#app .course-list .add-cart,
-#app .course-list .minus-cart {
-  padding: 0 5px;
-  background-color: #fff;
-  border: 1px solid #eee;
-  outline: none;
+.search-area  input:focus {
+  border-color: #38f;
+  /* border-bottom-color: transparent; */
 }
 
-#app .control {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
+.search-area .icon-paizhao {
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+  right: 11px;
+  font-size: 22px;
+  line-height: 16px;
+  cursor: pointer;
 }
 
-#app .select {
-  display: flex;
-  align-items: center;
-  color: #3c3c3c;
+.search-btn {
+  width: 102px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #38f;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
 }
 
-#app .select-all {
-  margin-right: 5px;
+.search-btn:hover {
+  height: 39px;
+  background-color: #317ef3;
+  border-bottom: 1px solid #2868c8;
+  box-shadow: 1px 1px 1px #ccc;
 }
 
-#app .price-container {
-  display: flex;
-  align-items: center;
+.search-list {
+  position: relative;
+  top: -1px;
+  width: 535px;
+  border: 1px solid #ccc;
+  padding-top: 1px;
+  box-shadow: 1px 1px 3px #ededed;
+  z-index: 1;
 }
 
-#app .price {
-  color: #f40;
-  margin-right: 5px;
+.search-list li {
+  width: 519px;
+  height: 22px;
+  line-height: 22px;
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 14px;
+  cursor: default;
 }
 
-#app .accounts {
-  width: 70px;
-  height: 30px;
-  color: rgba(255, 255, 255, 0.8);
-  background-color: #f40;
-  border: none;
-  border-radius: 15px;
-  font-size: 8px;
+.search-list li:hover {
+  background-color: #f0f0f0;
+
 }
