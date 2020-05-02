@@ -1,7 +1,5 @@
 <template>
-<div class="home">
-    home
-</div>
+<div><b> sorry , the url is 404</b></div>
 </template>
 
 <script>
