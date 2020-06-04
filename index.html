@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue源码</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            姓名：{{name}}
+        </p>
+        <p>对象嵌套：{{fun1.x}}</p>
+
+        <p>
+            年龄：{{age}}
+        </p>
+        <button onclick="vm.age++">点击</button>
+        <button onclick="add()">点击1</button>
+
+
+    </div>
+
+    <script type="module">
+
+        import Vue from './vue/vue.js'
+
+        window.vm =new Vue({
+            el:"#app",
+            data:{
+            name: 'cl',
+            age: 18,
+            fun1: {
+                x: 1,
+                y: 2
+            }
+        }
+        })
+
+
+// 以下为实验测试代码
+// function add(){
+//     vm.age++
+// }
+
+// window.add = add;
+// console.log(window.document)
+
+
+    //     import createResponse from './vue/proxy.js'
+    //     let app = document.getElementById('app')
+    //     import VNode from './vue/vnode.js'
+    //     window.vm1 = VNode(app)
+    //    window.obj = {
+    //         name: 'cl',
+    //         age: 18,
+    //         fun1: {
+    //             x: 1,
+    //             y: 2
+    //         }
+    //     };
+    //     window.obj1 = {}
+    //    createResponse(obj1, obj, function (prop) {
+    //         console.log(prop + 'gaibian')
+    //     })
+    //     import render from './vue/render.js'
+
+    //     render(VNode(app), {
+    //         name: 'cl',
+    //         age: 18,
+    //         fun1: {
+    //             x: 1,
+    //             y: 2
+    //         }
+    //     })
+
+
+
+
+
+
+
+
+
+
+
+
+        // import com from './vue/compile.js'
+        // window.come = com(` <p>
+        //     姓名：{{name}}
+        // </p>
+        // <p>{{fun1.x}}</p>
+        // <p>
+        //     年龄：{{age}}
+        // </p>`,{
+        //     name:'cl',
+        //     age:18,
+        //     fun1:{
+        //         x:1,
+        //         y:2
+        //     }
+        // })
+        // let obj={
+        //     name:'cl',
+        //     age:18,
+        //     fun1:{
+        //         x:1,
+        //         y:2
+        //     }
+        // }
+    </script>
+</body>
+
+</html>
