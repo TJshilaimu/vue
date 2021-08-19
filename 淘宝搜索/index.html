@@ -12,16 +12,17 @@
 <body>
     <div id="app">
         <div class="goods" v-for="(goods,goodsIndex) in goodsList">
-            <div class = "title">{{goods.title}}</div>
-            <ul class = "type-list">
-                <li class = "type" @click="changeColor(goods,typeIndex,type,goodsIndex)" :class="{active:typeIndex===goods.index}" v-for="(type,typeIndex) in goods.typeList">{{type}}</li>
+            <div class="title">{{goods.title}}</div>
+            <ul class="type-list">
+                <li class="type" @click="changeColor(goods,typeIndex,type,goodsIndex)"
+                    :class="{active:typeIndex===goods.index}" v-for="(type,typeIndex) in goods.typeList">{{type}}</li>
             </ul>
         </div>
-        <div class = "choose-type">
+        <div class="choose-type">
             <div>已选条件</div>
-            <span class = "no-goods" v-if="!flag">暂时没有选择过滤条件</span>
+            <span class="no-goods" v-if="!flag">暂时没有选择过滤条件dd</span>
             <ul class="filter-list" v-else>
-                <li v-for= "(choose,chooseIndex) in chooseList">{{choose}}
+                <li v-for="(choose,chooseIndex) in chooseList">{{choose}}
                     <span class="delete-goods" @click="deleteGoods(chooseIndex)">x</span>
                 </li>
             </ul>
@@ -48,34 +49,34 @@
                         id: 3,
                     }
                 ],
-                chooseList:{},
-                flag:false
+                chooseList: {},
+                flag: false
             },
-            methods:{
-                changeColor(goods,typeIndex,type,goodsIndex){
-                    if(type === '全部'){
+            methods: {
+                changeColor(goods, typeIndex, type, goodsIndex) {
+                    if (type === '全部') {
                         this.deleteGoods(goodsIndex);
                         return
                     }
                     goods.index = typeIndex;
                     // this.chooseList.push(type)
                     // this.chooseList.splice(goodsIndex,1,type)
-                    this.$set(this.chooseList,goodsIndex,type)
+                    this.$set(this.chooseList, goodsIndex, type)
                     // console.log(this.chooseList)
                     this.flag = true
                 },
-                deleteGoods(index){
-                    this.$delete(this.chooseList,index)
+                deleteGoods(index) {
+                    this.$delete(this.chooseList, index)
                     this.goodsList[index].index = 0;
-                    if(JSON.stringify(this.chooseList) == "{}"){
+                    if (JSON.stringify(this.chooseList) == "{}") {
                         this.flag = false
                     }
                 }
             }
         })
         vm.goodsList.forEach(element => {
-            vm.$set(element,'index',0)
-            
+            vm.$set(element, 'index', 0)
+
         });
     </script>
 </body>
